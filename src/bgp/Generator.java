@@ -24,6 +24,7 @@ public class Generator {
 			BufferedWriter bufferevent2 = new BufferedWriter(eventwriter2);
 			
 			double time = 0, temp, uniform;
+			int intime;
 			int coin, type;
 			int count = 0, lambda = 1;
 			int prefixes_per_node = 10;
@@ -54,6 +55,7 @@ public class Generator {
 				uniform = r.nextDouble();
 				temp = -Math.log(1 - uniform) / lambda;
 				time = time + temp;
+				intime=(int) time;
 				coin = (r.nextInt(1000)) + 1; // uniform random number [1,1000]
 												// for event_type generator
 				if (coin <= wd_prob) {
@@ -61,22 +63,27 @@ public class Generator {
 					int position = r.nextInt(topology.size());
 					String message = type+"\t" + topology.get(position).getId()
 							+ "\t" + topology.get(position).getNode() + "\t"
-							+ time + "\n";
+							+ intime + "\n";
+					
 					Table a = topology.get(position);
 					a.setState(0);
 					topology.set(position, a);
 					new_prefixex.add(a);
 					topology.remove(position);
+					
 					bufferevent.write(message);
 					bufferevent.flush();
 					bufferevent2.write(message);
 					bufferevent2.flush();
+					
+					//time = time + temp;
 				} else if (wd_prob < coin && coin <= new_pref_prob + old_prefix_prob) {
 					type = 3; // old prefix update with probability 0,904
 					int position = r.nextInt(topology.size());
 					String message = "2\t" + topology.get(position).getId()
 							+ "\t" + topology.get(position).getNode() + "\t"
-							+ time + "\n";
+							+ intime + "\n";
+					
 					bufferevent.write(message);
 					bufferevent.flush();
 				} else {
@@ -85,17 +92,21 @@ public class Generator {
 					int random_node= r.nextInt(topology.size());
 					String message = type+"\t" + new_prefixex.get(position).getId()
 							+ "\t" + random_node + "\t"
-							+ time + "\n";
+							+ intime + "\n";
+					
 					Table a = new_prefixex.get(position);
 					a.setState(1);
 					a.setNode(random_node);
 					new_prefixex.set(position, a);
 					topology.add(a);
 					new_prefixex.remove(position);
+					
 					bufferevent.write(message);
 					bufferevent.flush();
 					bufferevent2.write(message);
 					bufferevent2.flush();
+					
+					//time = time + temp;
 				}
 			} while (time < 500);
 			bufferevent.close();
