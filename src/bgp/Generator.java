@@ -28,7 +28,8 @@ public class Generator {
 			double time = 0, temp, uniform;
 			int intime;
 			int coin, type;
-			int count = 0, lambda = 1;
+			int count = 0, lambda = 5;
+			int stoptime = 5000;
 			int prefixes_per_node = 10;
 			int initalized_prefixesXnode_at_start = 4;
 			int numberofnodes = 2500;
@@ -117,7 +118,7 @@ public class Generator {
 
 					// time = time + temp;
 				}
-			} while (time < 500);
+			} while (time < stoptime);
 			bufferevent.close();
 			bufferevent2.close();
 		} catch (IOException e) {
