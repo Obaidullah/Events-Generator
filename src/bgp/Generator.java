@@ -30,7 +30,11 @@ public class Generator {
 			int coin, type;
 			int count = 0, lambda = 5;
 			int stoptime = 5000;
+<<<<<<< HEAD
 			int prefixes_per_node = 20;
+=======
+			int prefixes_per_node = 10;
+>>>>>>> 57bd4577302f87781d56ab6ff85b877bc11db07b
 			int initalized_prefixesXnode_at_start = 4;
 			int numberofnodes = 2500;
 
@@ -39,17 +43,30 @@ public class Generator {
 			int old_prefix_prob = 1000 - wd_prob - new_pref_prob;
 
 			ArrayList<Table> topology = new ArrayList<Table>();
+<<<<<<< HEAD
 			ArrayList<Table> new_prefixes = new ArrayList<Table>();
+=======
+			ArrayList<Table> new_prefixex = new ArrayList<Table>();
+>>>>>>> 57bd4577302f87781d56ab6ff85b877bc11db07b
 
 			for (int i = 1; i <= numberofnodes; i++) {
 				for (int k = 0; k < initalized_prefixesXnode_at_start; k++)
 					topology.add(new Table(i + numberofnodes * k, i, 1)); // topology.size()=60
+<<<<<<< HEAD
 				// -->
 				// [0,59] --->
 				// prefixes from
 				// 1 to 60
 			}
 			count = topology.get(topology.size() - 1).getId();
+=======
+																// -->
+																// [0,59] --->
+																// prefixes from
+																// 1 to 60
+			}
+			count = topology.get(topology.size()-1).getId();
+>>>>>>> 57bd4577302f87781d56ab6ff85b877bc11db07b
 
 			do {
 				new_prefixes.add(new Table(count, 0, 0)); // new_prefixes.size()=600
