@@ -109,7 +109,7 @@ public class Generator {
 
 					// time = time + temp;
 				} else {
-					type = 3; // old prefix update with probability 0,904
+					type = 3; // old prefix update with probability 0
 					int position = r.nextInt(topology.size());
 					String message = "2\t" + topology.get(position).getId()
 							+ "\t" + topology.get(position).getNode() + "\t"
